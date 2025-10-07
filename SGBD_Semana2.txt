@@ -1,0 +1,120 @@
+SGBD (SEMANA 4)
+Transparencia de transacción:
+Actualización de Datos en Varios Sitios de la Red
+
+En los sistemas de bases de datos distribuidas, las actualizaciones de datos pueden realizarse en 
+uno o varios sitios remotos dentro de una red interconectada. Este tipo de procesamiento requiere 
+mecanismos de control de transacciones y coordinación entre los distintos sistemas de gestión de 
+bases de datos (SGBD).
+
+Ejecución de una Transacción
+
+Una transacción es una unidad lógica de trabajo que agrupa varias operaciones 
+(consultas, inserciones, actualizaciones o eliminaciones) que deben ejecutarse 
+de forma completa o no ejecutarse en absoluto.
+
+Estructura general de una transacción:
+BEGIN WORK        -- Inicio de la transacción
+     SELECT ...   -- Consulta de datos
+     UPDATE ...   -- Actualización de registros
+     DELETE ...   -- Eliminación de registros
+COMMIT WORK       -- Confirmación de los cambios
+
+
+Si ocurre algún error durante la ejecución, se puede realizar un:
+
+ROLLBACK WORK     -- Cancela la transacción y revierte los cambios
+
+Tipos de Transacciones en Redes Distribuidas
+Transacción Remota
+
+Una transacción remota es aquella en la que el usuario se conecta a un sitio local, 
+pero las operaciones se ejecutan en un único sitio remoto.
+
+La solicitud se envía a través de la red al servidor remoto.
+
+Solo un procesador de base de datos se encarga de procesar 
+toda la transacción.
+
+Ejemplo:
+
+SITIO A (Cliente)  <---->  SITIO B (Servidor de Base de Datos)
+
+🔸 Transacción Distribuida
+
+Una transacción distribuida involucra varios sitios o servidores de bases de datos 
+dentro de la red.
+
+Cada sitio puede almacenar una parte de los datos.
+
+La transacción debe coordinar las operaciones entre todos los sitios involucrados.
+
+Es fundamental el control de concurrencia y la recuperación ante fallos.
+
+Ejemplo práctico:
+Un sistema bancario donde una transacción transfiere dinero desde una cuenta en 
+el SITIO A a otra cuenta en el SITIO B.
+
+Solicitud Distribuida
+
+Una solicitud distribuida permite realizar consultas o actualizaciones que hacen 
+referencia a datos almacenados en diferentes sitios dentro de la red.
+Esto implica que:
+
+Se pueden dividir las tablas en varios fragmentos distribuidos.
+
+Las consultas pueden acceder a uno o más fragmentos según la necesidad.
+
+Transparencias en los Sistemas Distribuidos
+
+Los sistemas de bases de datos distribuidas buscan ofrecer transparencia al usuario, 
+es decir, que el usuario no perciba la complejidad del entorno distribuido.
+
+1. Transparencia de Replicación
+Cuando existen copias redundantes de los datos en diferentes sitios, el sistema debe 
+gestionar esas copias de forma automática.
+El usuario no necesita saber cuántas copias existen ni dónde se encuentran.
+Esto garantiza disponibilidad y tolerancia a fallos.
+
+2. Transparencia de Fallas y Replicación
+
+Permite que el sistema continúe operando incluso si un sitio de la red falla temporalmente.
+Gracias a la replicación, las operaciones pueden redirigirse a otro sitio que contenga una 
+copia de los datos.
+
+3. Transparencia de Desempeño
+
+El sistema busca optimizar las consultas y distribuir la carga de trabajo entre los diferentes sitios.
+
+Se utilizan algoritmos de optimización de consultas para decidir el mejor camino o estrategia de ejecución.
+
+Puede incluir aspectos como el uso eficiente del ancho de banda o la reducción del tiempo de respuesta.
+
+Tipos de Consulta:
+
+Consulta Estática:
+Se compila una vez por el SGBD antes de su ejecución. Su plan de ejecución no cambia.
+Ideal para operaciones repetitivas y predecibles.
+
+Consulta Dinámica:
+Se compila en tiempo de ejecución, permitiendo adaptarse a cambios en los datos o en las condiciones del sistema.
+Es más flexible, pero puede requerir más recursos.
+
+4. Transparencia de Heterogeneidad
+
+Permite que diferentes sitios dentro de la red usen distintos sistemas de gestión de bases de datos (SGBD), 
+lenguajes o modelos de datos, y aún así puedan comunicarse e intercambiar información.
+Por ejemplo, un sitio podría usar Oracle, otro MySQL, y otro PostgreSQL, pero el usuario interactúa como si 
+fuera un solo sistema unificado.
+
+
+
+
+Las transacciones distribuidas y remotas son fundamentales en las bases de datos modernas, ya que permiten compartir, 
+procesar y mantener la coherencia de la información en redes amplias y complejas.
+Los mecanismos de transparencia aseguran que el usuario trabaje con simplicidad, mientras el sistema maneja internamente 
+la replicación, fallos, desempeño y heterogeneidad, garantizando la integridad y disponibilidad de los datos.
+---------------
+VM -- Ubuntu (20) -- 2 Maquinas Virtuales
+
+ 

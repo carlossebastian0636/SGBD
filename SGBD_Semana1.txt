@@ -1,0 +1,284 @@
+
+SGBDD
+Semana 1
+Bases de Datos Distribuidas
+
+
+Una base de datos distribuida (BDD) es un tipo de base de datos virtual, cuyas componentes 
+de información están almacenadas de forma transparente en varios sitios o sistemas dentro de una red.
+A pesar de estar físicamente dispersos, todos los datos se comportan como si formaran parte de una 
+única base de datos centralizada.
+
+Esquema general:
+          RED
+   -----------------
+   |   SBD (Servidor de BD) |
+   | SO (Clientes)          |
+   -----------------
+
+
+En este entorno, las estaciones de trabajo (clientes) interactúan con servidores que almacenan 
+los datos y los procesan mediante un Sistema de Gestión de Bases de Datos (SGBD).
+
+Componentes de un Sistema de Base de Datos Distribuida
+Estaciones de Trabajo (Clientes)
+
+Son los equipos desde los cuales los usuarios realizan consultas o transacciones.
+Estos clientes envían solicitudes al servidor a través de la red.
+
+Componentes de Software y Hardware
+
+Incluyen:
+
+Gestor de Base de Datos (SGBD): Controla el almacenamiento, procesamiento y acceso a los datos.
+
+Equipos de Alta Gama: Servidores o nodos con gran capacidad de procesamiento y almacenamiento.
+
+Sistemas Operativos: Permiten la ejecución del software de base de datos y la gestión de recursos.
+
+•Medios de Comunicación
+
+La red (LAN, WAN o Internet) actúa como medio de comunicación, permitiendo la conexión entre clientes 
+y servidores para el intercambio de información.
+
+•Procesador de Transacciones
+
+El SGBD cumple el rol de procesar las transacciones, asegurando que cada operación sea atómica, 
+consistente, aislada y duradera (propiedades ACID).
+
+•Procesador de Datos
+
+El servidor se encarga del procesamiento físico de los datos, atendiendo las solicitudes 
+provenientes de los clientes.
+
+
+Características de un Sistema de Manejo de Bases de Datos Distribuidas (SMBDD)
+
+Un Sistema Manejador de Bases de Datos Distribuidas (SMBDD) debe ser capaz de garantizar 
+la correcta ejecución de las operaciones y la coherencia de los datos en todos los sitios que conforman la red.
+
+Principales características:
+
+Validación, análisis y descomposición de solicitudes:
+El sistema debe interpretar las consultas (generalmente expresadas en SQL), analizarlas y 
+dividirlas en subconsultas que puedan ejecutarse en los distintos sitios de la red.
+
+Localización y recuperación de datos:
+El SMBDD busca, localiza, lee y valida los datos en los sitios donde se encuentren almacenados.
+
+Garantía de consistencia:
+Se asegura que los datos se mantengan coherentes en todos los sitios, incluso en caso de fallas o interrupciones.
+
+Seguridad e integridad:
+Controla el acceso a los datos, protege la información de accesos no autorizados y mantiene la integridad 
+referencial entre fragmentos o réplicas.
+
+Clasificación de las Bases de Datos Distribuidas
+
+Las bases de datos pueden clasificarse según cómo están soportados los datos y dónde se realiza el procesamiento.
+
+1. Bases de Datos Centralizadas
+
+Todos los datos se almacenan en un único sitio.
+
+El procesamiento también se realiza localmente.
+
+Es simple, pero tiene menor tolerancia a fallos.
+
+2. Bases de Datos Distribuidas
+
+Los datos se encuentran repartidos entre varios sitios interconectados por una red.
+
+Cada sitio puede tener su propio procesador de base de datos y un fragmento de los datos.
+
+3. Tipos de Distribución
+▪ Homogénea:
+
+Todos los nodos utilizan el mismo software, esquema y modelo de datos.
+
+Facilita la administración, replicación y comunicación entre los sitios.
+
+▪ Heterogénea:
+
+Los nodos pueden usar diferentes SGBD, esquemas o lenguajes de consulta.
+
+Aumenta la complejidad, pero permite integrar sistemas diversos, como Oracle, MySQL y SQL Server dentro de la misma red.
+
+4. SPSD (Procesamiento en Sitios Múltiples, Datos en un Solo Sitio)
+
+Las operaciones pueden ejecutarse en varios sitios, aunque los datos se encuentren concentrados en un solo lugar.
+
+Es una forma híbrida entre los sistemas centralizados y los distribuidos.
+
+Niveles de una Base de Datos Distribuida
+
+Un sistema distribuido busca transparencia total frente al usuario, de modo que éste no perciba la distribución de los datos ni la complejidad de la red.
+
+•Transparencia de Distribución
+
+Permite manejar toda la base de datos como si estuviera en un solo lugar, aunque esté físicamente distribuida.
+Incluye varios subtipos:
+
+Transparencia de Fragmentación:
+El usuario puede acceder a los datos sin saber si estos están divididos en fragmentos (por filas o columnas).
+
+Transparencia de Ubicación:
+El sistema localiza automáticamente el sitio donde están los datos solicitados, sin intervención del usuario.
+
+Transparencia Local:
+Los usuarios locales trabajan con sus propias bases de datos sin preocuparse por cómo se integran al sistema global.
+
+
+Las bases de datos distribuidas representan una evolución del modelo tradicional centralizado, permitiendo mayor disponibilidad, rendimiento y escalabilidad.
+Su correcta implementación depende del SGBD distribuido, que coordina transacciones, mantiene la integridad y ofrece transparencia total al usuario.
+Gracias a estas características, los sistemas distribuidos son ampliamente utilizados en empresas globales, instituciones financieras, universidades y entornos corporativos, donde los datos deben ser compartidos y gestionados de manera eficiente entre distintos nodos conectados por una red.
+
+-------------------------------------------------------------------------------------------------------------------------------------------------------
+CREAR UNA BD DE UNIVERSIDAD
+
+CREATE TABLE UNIVERSIDAD(
+ID_UNIVERSIDAD NUMBER PRIMARY KEY,
+NOMBRE_UNIVERSIDAD VARCHAR(20) NOT NULL);
+
+
+CREATE TABLE CAMPUS(
+ID_CAMPUS NUMBER PRIMARY KEY,
+NOMBRE_CAMPUS VARCHAR(20) NOT NULL,
+DIR_CAMPUS VARCHAR(20) NOT NULL);
+
+
+
+INSERT INTO CAMPUS VALUES (1801, 'INGAHURCCO', 'Av. Los Andes');
+INSERT INTO CAMPUS VALUES (1802, 'HUACHI', 'Huachi Chico');
+INSERT INTO CAMPUS VALUES (1803, 'QUEROCHACA', 'Centro de Quero');
+
+
+CREATE TABLE FACULTADES (
+    ID_FACULTAD NUMBER PRIMARY KEY,
+    NOM_FACULTAD VARCHAR(50) NOT NULL,
+    ID_CAMPUS NUMBER NOT NULL REFERENCES CAMPUS(ID_CAMPUS)
+);
+
+INSERT INTO FACULTADES VALUES (1001, 'INGENIERÍA EN SISTEMAS', 1801);
+INSERT INTO FACULTADES VALUES (2002, 'MEDICINA', 1802);
+INSERT INTO FACULTADES VALUES (3003, 'CIENCIAS ADMINISTRATIVAS', 1803);
+
+
+CREATE TABLE CARRERAS (
+    ID_CARRERA NUMBER PRIMARY KEY AUTO_INCREMENT,
+    NOM_CARRERA VARCHAR(50) NOT NULL,
+    ID_FACULTAD NUMBER  NOT NULL REFERENCES FACULTADES(ID_FACULTAD)
+);
+
+
+INSERT INTO UNIVERSIDAD VALUES (123, 'UTA');
+INSERT INTO UNIVERSIDAD VALUES (222, 'UNIANDES');
+INSERT INTO UNIVERSIDAD VALUES (321, 'PUCESA');
+
+INSERT INTO CARRERAS VALUES (201, 'INGENIERIA EN SOFTWARE', 1801);
+INSERT INTO CARRERAS VALUES (202, 'ENFERMERIA', 1802);
+INSERT INTO CARRERAS VALUES (203, 'AGRONOMIA', 1803);
+
+INSERT INTO CARRERAS VALUES (204, 'INGENIERIA EN TI', 1801);
+INSERT INTO CARRERAS VALUES (205, 'MEDICINA', 1802);
+INSERT INTO CARRERAS VALUES (206, 'VETERINARIA', 1803);
+
+INSERT INTO CARRERAS VALUES (207, 'INGENIERIA EN ROBOTICA', 1801);
+INSERT INTO CARRERAS VALUES (208, 'FISIOTERAPIA', 1802);
+INSERT INTO CARRERAS VALUES (209, 'BIOTECNOLOGIA', 1803);
+
+
+--------------------------------------------------------------------------------------
+CREATE USER UNIVERSIDAD IDENTIFIED BY UNI123;
+GRANT CONNECT, RESOURCE, UNLIMITED TABLESPACE,CREATE ANY VIEW TO UNIVERSIDAD;
+
+USER UNIVERSIDAD
+
+CREATE TABLE CAMPUS(
+ID_CAMPUS NUMBER PRIMARY KEY,
+NOMBRE_CAMPUS VARCHAR(20) NOT NULL,
+DIR_CAMPUS VARCHAR(20) NOT NULL);
+
+
+INSERT INTO CAMPUS VALUES (1801, 'INGAHURCCO', 'Av. Los Andes');
+INSERT INTO CAMPUS VALUES (1802, 'HUACHI', 'Huachi Chico');
+INSERT INTO CAMPUS VALUES (1803, 'QUEROCHACA', 'Centro de Quero');
+
+
+
+CREATE TABLE CARRERAS (
+    ID_CARRERA NUMBER PRIMARY KEY,
+    NOM_CARRERA VARCHAR(50) NOT NULL,
+    ID_CAMPUS NUMBER NOT NULL REFERENCES CAMPUS(ID_CAMPUS)
+);
+
+
+INSERT INTO CARRERAS VALUES (201, 'INGENIERIA EN SOFTWARE', 1801);
+INSERT INTO CARRERAS VALUES (202, 'ENFERMERIA',1802);
+INSERT INTO CARRERAS VALUES (203, 'AGRONOMIA',1803);
+
+INSERT INTO CARRERAS VALUES (204, 'INGENIERIA EN TI',1801);
+INSERT INTO CARRERAS VALUES (205, 'MEDICINA',1802);
+INSERT INTO CARRERAS VALUES (206, 'VETERINARIA',1803);
+
+INSERT INTO CARRERAS VALUES (207, 'INGENIERIA EN ROBOTICA',1801);
+INSERT INTO CARRERAS VALUES (208, 'FISIOTERAPIA',1802);
+INSERT INTO CARRERAS VALUES (209, 'BIOTECNOLOGIA',1803);
+
+CREATE TABLE MATERIAS(
+ID_MAT NUMBER PRIMARY KEY,
+NOM_MAT VARCHAR(50) NOT NULL,
+CARRERA_PER NUMBER NOT NULL REFERENCES CARRERAS(ID_CARRERAS));
+
+INSERT INTO MATERIAS VALUES (4001,'PROGRAMACION AVANZADA',50,201);
+INSERT INTO MATERIAS VALUES (4002,'BASES DE DATOS DISTRIBUIDOS',30,202);
+INSERT INTO MATERIAS VALUES (4003,'QUIMICA',50,203);
+INSERT INTO MATERIAS VALUES (4004,'MEDIDADS ELECTRICAS',40,204);
+INSERT INTO MATERIAS VALUES (4005,'QUIMICA II',10,205);
+INSERT INTO MATERIAS VALUES (4006,'ANATOMIA',60,206);
+INSERT INTO MATERIAS VALUES (4007,'CIRCUITOS ELECTRICOS',20,207);
+INSERT INTO MATERIAS VALUES (4008,'FISIOLOGIA',50,208);
+INSERT INTO MATERIAS VALUES (4009,'MICROBIOLOGIA',50,209);
+
+.CONSULTAS DE CADA CAMPUS
+
+SELECT *
+FROM CARRERAS
+WHERE CUPOS < 40;
+
+
+--------------------------------------------------------------------------------
+SOPORTA DE CONSULTAS 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

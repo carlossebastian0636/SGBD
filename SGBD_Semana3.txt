@@ -1,0 +1,75 @@
+SEMANA 3
+Clase 5 - 6
+
+Arquitectura de los sistemas de administración de BDD
+
+ANSI-SPARC  
+Nivel Externo: Scrips
+Nivel Conceptual: Esquema Conceptual (Scrips)
+Nivel Interno: Equema Fisico 
+
+
+
+INTERNO: Estructura Fisica
+
+CONCEPTUAL: Entidades, atributos, etc…
+ 
+EXTERNO: 
+
+Los únicos datos existentes están a nivel físico (Disco)
+
+niveles de arquitectura ANSI-SPARC 
+ESQUEMA DE FRAGMENTACION: forma en la que se relacionan 
+ESQUEMA DE ASIGNAMIENTOS: especifica su destino, requerimientos del usuario
+
+BD -> Esquema Global
+
+Sistema de administración de BDD HETEROGENEOS
+Locales: Gestor
+Globales: SQL
+
+P: HOMOGENEO O HETEROGENEO ->
+
+DISEÑO DE UNA BASE DE DATOS DISTRIBUIDOS 
+ 
+conceptual, lógico y fisico
+
+Como dividir la BD en fragmentos 
+Que fragmentos voy a replicar
+Donde voy alocalizar estos fragmentos y replicas
+
+
+Escalabilidad , Transparencia
+
+Fragmentación de datos:
+Como realizar la fragmentación
+Que tanto se debe fragmentar 
+
+
+Problema de la fragmentación
+
+Fragmentaciones de una BDD
+Catalogo de datos (reglas)
+ A nivel de tabla:
+
+ Fragmentación Horizontal: División de una fragmentación de una relación de fragmentos de tuplas(filas), mismo atributo (columnas)
+ Fragmentación Vertical  : División de relación en subconjuntos de atributos(columnas unicas)
+ Fragmentación Mezclada  : Una tabal puede dividirse en varios subconjuntos horiaontales y erticales
+
+Fragmetacion Hibrida: Se introdue la fragmentación horizotal de cda sitio
+
+
+
+psgres y mogno : ubun y win
+
+  
+
+
+
+
+
+
+
+
+
+
